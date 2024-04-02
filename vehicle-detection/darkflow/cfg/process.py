@@ -3,8 +3,8 @@ WARNING: spaghetti code.
 """
 
 import numpy as np
-import pickle
 import os
+import fickling
 
 def parser(model):
 	"""
@@ -144,7 +144,7 @@ def cfg_yielder(model, binary):
 				file = inp.split(',')[0]
 				layer_num = int(inp.split(',')[1])
 				with open(file, 'rb') as f:
-					profiles = pickle.load(f, encoding = 'latin1')[0]
+					profiles = fickling.load(f, encoding = 'latin1')[0]
 				layer = profiles[layer_num]
 			else: layer = inp
 			activation = d.get('activation', 'logistic')
@@ -208,7 +208,7 @@ def cfg_yielder(model, binary):
 		elif d['type'] == '[conv-extract]':
 			file = d['profile']
 			with open(file, 'rb') as f:
-				profiles = pickle.load(f, encoding = 'latin1')[0]
+				profiles = fickling.load(f, encoding = 'latin1')[0]
 			inp_layer = None
 			inp = d['input']
 			out = d['output']
@@ -256,7 +256,7 @@ def cfg_yielder(model, binary):
 			activation = d.get('activation', 'logistic')
 			file = d['profile']
 			with open(file, 'rb') as f:
-				profiles = pickle.load(f, encoding = 'latin1')[0]
+				profiles = fickling.load(f, encoding = 'latin1')[0]
 			inp_layer = None
 			inp = d['input']
 			out = d['output']

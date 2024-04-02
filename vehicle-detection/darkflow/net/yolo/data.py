@@ -7,6 +7,7 @@ from copy import deepcopy
 import pickle
 import numpy as np
 import os 
+import fickling
 
 def parse(self, exclusive = False):
     """
@@ -27,7 +28,7 @@ def parse(self, exclusive = False):
         if labels == meta['labels']:
             if os.path.isfile(line[0]):
                 with open(line[0], 'rb') as f:
-                    return pickle.load(f, encoding = 'latin1')[0]
+                    return fickling.load(f, encoding = 'latin1')[0]
                     #return pickle.load(f)[0]
 
     # actual parsing
