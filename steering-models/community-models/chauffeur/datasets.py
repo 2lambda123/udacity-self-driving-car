@@ -633,7 +633,7 @@ def prepare_dataset(
         logger.info('Downloading dataset archive from %s', archive_url)
 
         # download
-        r = requests.get(archive_url, stream=True)
+        r = requests.get(archive_url, stream=True, timeout=60)
         with open(archive_path, 'wb') as f:
             for chunk in r.iter_content(chunk_size=4096):
                 if chunk: # filter out keep-alive new chunks
