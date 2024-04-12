@@ -4,11 +4,8 @@ Loading/saving datasets.
 import logging
 import multiprocessing
 import os
-import pickle
 import shutil
 import subprocess
-import threading
-import traceback
 
 import cv2
 import pandas as pd
@@ -16,11 +13,11 @@ import pandas as pd
 from keras.utils.np_utils import to_categorical
 import numpy as np
 from progress.bar import IncrementalBar
-import requests
 from scipy.stats.mstats import mquantiles
 
 from models import get_output_dim
-from util import download_dir, parse_s3_uri, upload_dir
+from util import upload_dir
+from security import safe_requests
 
 logger = logging.getLogger(__name__)
 
@@ -633,7 +630,7 @@ def prepare_dataset(
         logger.info('Downloading dataset archive from %s', archive_url)
 
         # download
-        r = requests.get(archive_url, stream=True)
+        r = safe_requests.get(archive_url, stream=True)
         with open(archive_path, 'wb') as f:
             for chunk in r.iter_content(chunk_size=4096):
                 if chunk: # filter out keep-alive new chunks
