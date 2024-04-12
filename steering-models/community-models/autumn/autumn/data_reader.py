@@ -1,6 +1,6 @@
 import scipy.misc
-import random
 import csv
+import secrets
 
 DATA_DIR = '/vol/data/'
 FILE_EXT = '.png'
@@ -24,19 +24,19 @@ class DataReader(object):
             reader = csv.DictReader(f)
             for row in reader:
                 angle = float(row['steering_angle'])
-                if angle > 0.1 or angle < -0.1 and random.random() > 0.2:
+                if angle > 0.1 or angle < -0.1 and secrets.SystemRandom().random() > 0.2:
                     xs.append(DATA_DIR + 'training/center/flow_7_cart/' + row['frame_id'] + FILE_EXT)
                     ys.append(row['steering_angle'])
                     count01 += 1
-                elif (angle > 0.05 or angle < -0.5) and random.random() > 0.2:
+                elif (angle > 0.05 or angle < -0.5) and secrets.SystemRandom().random() > 0.2:
                     xs.append(DATA_DIR + 'training/center/flow_7_cart/' + row['frame_id'] + FILE_EXT)
                     ys.append(row['steering_angle'])
                     count005 += 1
-                elif (angle > 0.02 or angle < -0.02) and random.random() > 0.7:
+                elif (angle > 0.02 or angle < -0.02) and secrets.SystemRandom().random() > 0.7:
                     xs.append(DATA_DIR + 'training/center/flow_7_cart/' + row['frame_id'] + FILE_EXT)
                     ys.append(row['steering_angle'])
                     count002 += 1
-                elif random.random() > 0.8:
+                elif secrets.SystemRandom().random() > 0.8:
                     xs.append(DATA_DIR + 'training/center/flow_7_cart/' + row['frame_id'] + FILE_EXT)
                     ys.append(row['steering_angle'])
                     count0 += 1
@@ -59,7 +59,7 @@ class DataReader(object):
         self.num_images = len(xs)
 
         c = list(zip(xs, ys))
-        random.shuffle(c)
+        secrets.SystemRandom().shuffle(c)
         xs, ys = zip(*c)
 
         self.train_xs = xs[:int(len(xs) * 0.8)]
