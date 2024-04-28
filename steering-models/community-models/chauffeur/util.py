@@ -66,7 +66,7 @@ def download_file(s3_bucket, s3_key, out_path):
     """
     s3_uri = 's3://%s/%s' % (s3_bucket, s3_key)
 
-    logger.info('Downloading ' + s3_uri)
+    logger.info("Downloading %s", s3_uri)
     # use awscli for extra speed
     subprocess.call(['aws', 's3', 'cp', s3_uri, out_path])
 
